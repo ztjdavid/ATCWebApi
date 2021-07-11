@@ -42,4 +42,7 @@ public class OrderResource {
     public boolean delOrder(@PathVariable("id") String id){
         return orderService.delOrder(id);
     }
+
+    @PostMapping("/order/clear")
+    public boolean clear(){ return orderService.clear(); }
 }

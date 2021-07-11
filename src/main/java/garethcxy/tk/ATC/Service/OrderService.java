@@ -40,6 +40,8 @@ public class OrderService {
         return orderDAO.getSummaryById(uuid);
     }
 
+    public boolean clear(){ return orderDAO.clear(); }
+
     public void setSummary(String id){
         UUID uuid = UUID.fromString(id);
         orderDAO.setSummary(uuid,
@@ -54,4 +56,6 @@ public class OrderService {
         UUID uuid = UUID.fromString(id);
         return orderDAO.delete(uuid);
     }
+
+
 }

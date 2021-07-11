@@ -33,6 +33,13 @@ public class OrderDAO implements IDAO<Order>{
         return orderList.removeIf(order -> {return order.getUuid().equals(id);});
     }
 
+    public boolean clear(){
+        try{
+            this.orderList.clear();
+        }catch (Exception e) { return false; }
+        return true;
+    }
+
     @Override
     public boolean delete(Order order) {
         return orderList.remove(order);
