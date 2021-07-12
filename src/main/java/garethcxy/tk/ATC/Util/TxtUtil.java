@@ -23,6 +23,10 @@ public class TxtUtil {
         // Assemble info
         return getBaseInfo(order.getUuid(), order.getOrderDate(),
                 order.getTarget1Info(), order.getTarget2Info()) +
+                getCatagoryInfo(order.getFees().getElectricityFee(),
+                        order.getFees().getAmazonFee(),
+                        order.getFees().getInternetFee(),
+                        order.getFees().getOtherFee()) +
                 getThreePeopleInfo(order.getThreePeople()) +
                 getTarget1Info(order.getTarget1(), order.getTarget1Info()) +
                 getTarget2Info(order.getTarget2(), order.getTarget2Info()) +
@@ -35,6 +39,16 @@ public class TxtUtil {
         return divider + "订单UUID: " + id.toString() + "\n"
                 + "创建时间: " + dateFormatString.format(createTime) + "\n"
                 + "账单对象: " + target1 + ", " + target2 + "\n";
+    }
+
+    public String getCatagoryInfo(double electricityFee,
+                                  double amazonFee,
+                                  double internetFee,
+                                  double otherFee){
+        return divider + "电费: " + electricityFee + "\n"
+                + "Amazon费: " + amazonFee + "\n"
+                + "网费: " + internetFee + "\n"
+                + "其他费用: " + otherFee + "\n";
     }
 
     public String getThreePeopleInfo(List<Item> items){

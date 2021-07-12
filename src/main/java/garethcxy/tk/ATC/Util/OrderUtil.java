@@ -18,10 +18,14 @@ public class OrderUtil {
     private TxtUtil txtUtil;
 
     public double calculateForTarget1(Order order) {
-        return calculateForList(order.getTarget1()) + calculateForList(order.getThreePeople());
+        return calculateForList(order.getTarget1())
+                + calculateForList(order.getThreePeople())
+                + order.getFees().calculate();
     }
     public double calculateForTarget2(Order order) {
-        return calculateForList(order.getTarget2()) + calculateForList(order.getThreePeople());
+        return calculateForList(order.getTarget2())
+                + calculateForList(order.getThreePeople())
+                + order.getFees().calculate();
     }
 
     private double calculateForList(List<Item> items){
@@ -45,13 +49,17 @@ public class OrderUtil {
         Summary result = new Summary();
         result.setTarget1Info(order.getTarget1Info());
         result.setTarget2Info(order.getTarget2Info());
+        result.setElectricityFee(order.getFees().getElectricityFee());
+        result.setAmazonFee(order.getFees().getAmazonFee());
+        result.setInternetFee(order.getFees().getInternetFee());
+        result.setOtherFee(order.getFees().getOtherFee());
         result.setItemsForTarget1(getStringList(order.getTarget1()));
         result.setItemsForTarget2(getStringList(order.getTarget2()));
         result.setItemsForAll(getStringList(order.getThreePeople()));
         double totoal1 = calculateForTarget1(order);
         double totoal2 = calculateForTarget2(order);
-        result.setTotalTaregt1(totoal1);
-        result.setTotalTaregt2(totoal2);
+        result.setTotalTarget1(totoal1);
+        result.setTotalTarget2(totoal2);
         result.setTxtString(txtUtil.getTxt(order, totoal1, totoal2));
 
         return result;

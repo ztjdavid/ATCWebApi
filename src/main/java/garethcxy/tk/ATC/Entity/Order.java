@@ -24,6 +24,8 @@ public class Order {
     private List<Item> Target1;
     @JsonProperty(value = "Target2")
     private List<Item> Target2;
+    @JsonProperty(value = "Fees")
+    private RegularFeeObject Fees;
 
     public Order() {
         uuid = UUID.randomUUID();
