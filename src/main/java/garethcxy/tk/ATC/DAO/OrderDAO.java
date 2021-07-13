@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 public class OrderDAO implements IDAO<Order>{
-    private ArrayList<Order> orderList = new ArrayList<>();
+    private final ArrayList<Order> orderList = new ArrayList<>();
 
     @Override
     public Optional<Order> get(UUID id) {
@@ -52,18 +52,5 @@ public class OrderDAO implements IDAO<Order>{
             result.add(order.getUuid());
         });
         return result;
-    }
-
-    public Summary getSummaryById(UUID id){
-        Order order = get(id).orElse(null);
-        return (order == null)? null : order.getSummary();
-    }
-
-    public void setSummary(UUID uuid, Summary summary){
-        get(uuid).ifPresent(order -> setSummary(order, summary));
-    }
-
-    public void setSummary(Order order, Summary summary){
-        order.setSummary(summary);
     }
 }

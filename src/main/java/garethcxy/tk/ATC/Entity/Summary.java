@@ -9,6 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Summary {
+    private UUID uuid;
     private List<String> ItemsForTarget1;
     private List<String> ItemsForTarget2;
     private List<String> ItemsForAll;

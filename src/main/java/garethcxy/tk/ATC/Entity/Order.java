@@ -13,7 +13,6 @@ import java.util.UUID;
 public class Order {
     private LocalDateTime orderDate;
     private UUID uuid;
-    private Summary summary;
     @JsonProperty(value = "Target1Info")
     private String Target1Info;
     @JsonProperty(value = "Target2Info")
@@ -30,6 +29,5 @@ public class Order {
     public Order() {
         uuid = UUID.randomUUID();
         orderDate = LocalDateTime.now();
-        summary = new Summary();
     }
 }

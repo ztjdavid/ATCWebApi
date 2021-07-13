@@ -33,11 +33,6 @@ public class OrderResource {
         return orderService.getById(id).orElse(null);
     }
 
-    @GetMapping("/order/summary/{id}")
-    public Summary getSummaryById(@PathVariable("id") String id){
-        return orderService.getSummaryById(id);
-    }
-
     @PostMapping("/order/del/{id}")
     public boolean delOrder(@PathVariable("id") String id){
         return orderService.delOrder(id);
