@@ -1,17 +1,17 @@
 package garethcxy.tk.ATC.DAO;
 
 import garethcxy.tk.ATC.Entity.Summary;
-import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Component
-public class SummaryDao implements IDAO<Summary>{
-    private final ArrayList<Summary> summaryList = new ArrayList<>();
+public class SummaryDAO implements IDAO<Summary>{
+    private final LinkedList<Summary> summaryList = new LinkedList<>();
+
+    @Value("${global.order.threshold}")
+    private int maxStorage;
 
     @Override
     public Optional<Summary> get(UUID id) {
@@ -23,14 +23,13 @@ public class SummaryDao implements IDAO<Summary>{
 
     @Override
     public void add(Summary summary) {
-        summaryList.add(summary);
+        if(summaryList.size() >= maxStorage) summaryList.pollFirst();
+        summaryList.addLast(summary);
     }
 
     @Override
     public boolean delete(UUID id) {
-        return summaryList.removeIf(summary -> {
-            return summary.getUuid().equals(id);
-        });
+        return summaryList.removeIf(summary -> summary.getUuid().equals(id));
     }
 
     @Override
@@ -45,5 +44,9 @@ public class SummaryDao implements IDAO<Summary>{
             result.add(summary.getUuid());
         }
         return result;
+    }
+
+    public Summary getLatest() {
+        return summaryList.peekLast();
     }
 }

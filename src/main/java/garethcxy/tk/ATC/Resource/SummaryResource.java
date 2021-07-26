@@ -16,4 +16,10 @@ public class SummaryResource {
     public Summary get(@PathVariable("id") String uuid){
         return summaryService.get(uuid);
     }
+
+    @GetMapping("/summary/latest")
+    public Summary getLatest(){return summaryService.getLatest().orElse(null);}
+
 }
+
+

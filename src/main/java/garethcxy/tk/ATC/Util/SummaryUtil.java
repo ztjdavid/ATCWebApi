@@ -41,21 +41,23 @@ public class SummaryUtil {
 
     private List<String> getStringList(List<Item> itemList){
         List<String> result = new ArrayList<>();
-        itemList.forEach(item -> {
-            result.add(itemUtil.getItemDesc(item));
-        });
+        itemList.forEach(item -> result.add(itemUtil.getItemDesc(item)));
         return result;
     }
 
     private double calculateForTarget1(Order order) {
-        return calculateForList(order.getTarget1())
+        double value = calculateForList(order.getTarget1())
                 + calculateForList(order.getThreePeople())
                 + order.getFees().calculate();
+        BigDecimal rounder = new BigDecimal(value);
+        return rounder.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
     private double calculateForTarget2(Order order) {
-        return calculateForList(order.getTarget2())
+        double value = calculateForList(order.getTarget2())
                 + calculateForList(order.getThreePeople())
                 + order.getFees().calculate();
+        BigDecimal rounder = new BigDecimal(value);
+        return rounder.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     private double calculateForList(List<Item> items){
@@ -63,6 +65,6 @@ public class SummaryUtil {
         for(Item item : items){
             result += itemUtil.calculatePrice(item);
         }
-        return new BigDecimal(result).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return result;
     }
 }

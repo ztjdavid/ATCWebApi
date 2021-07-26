@@ -1,19 +1,17 @@
 package garethcxy.tk.ATC.DAO;
 
-import garethcxy.tk.ATC.Entity.Item;
 import garethcxy.tk.ATC.Entity.Order;
-import garethcxy.tk.ATC.Entity.Summary;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class OrderDAO implements IDAO<Order>{
-    private final ArrayList<Order> orderList = new ArrayList<>();
+    private final LinkedList<Order> orderList = new LinkedList<>();
+
+    @Value("${global.order.threshold}")
+    private int maxStorage;
 
     @Override
     public Optional<Order> get(UUID id) {
@@ -25,12 +23,13 @@ public class OrderDAO implements IDAO<Order>{
 
     @Override
     public void add(Order order) {
-        orderList.add(order);
+        if(orderList.size() >= maxStorage) orderList.pollFirst();
+        orderList.addLast(order);
     }
 
     @Override
     public boolean delete(UUID id) {
-        return orderList.removeIf(order -> {return order.getUuid().equals(id);});
+        return orderList.removeIf(order -> order.getUuid().equals(id));
     }
 
     public boolean clear(){
@@ -48,9 +47,7 @@ public class OrderDAO implements IDAO<Order>{
     @Override
     public List<UUID> getAllUUID() {
         List<UUID> result = new ArrayList<>();
-        orderList.forEach(order -> {
-            result.add(order.getUuid());
-        });
+        orderList.forEach(order -> result.add(order.getUuid()));
         return result;
     }
 }

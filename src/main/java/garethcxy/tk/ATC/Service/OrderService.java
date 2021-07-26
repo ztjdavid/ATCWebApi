@@ -1,9 +1,8 @@
 package garethcxy.tk.ATC.Service;
 
 import garethcxy.tk.ATC.DAO.OrderDAO;
-import garethcxy.tk.ATC.DAO.SummaryDao;
+import garethcxy.tk.ATC.DAO.SummaryDAO;
 import garethcxy.tk.ATC.Entity.Order;
-import garethcxy.tk.ATC.Entity.Summary;
 import garethcxy.tk.ATC.Util.SummaryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
     @Autowired
-    private SummaryDao summaryDao;
+    private SummaryDAO summaryDao;
     @Autowired
     private SummaryUtil summaryUtil;
 
