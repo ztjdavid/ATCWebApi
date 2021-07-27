@@ -3,6 +3,7 @@ package garethcxy.tk.ATC.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Setter
 public class Summary {
     private UUID uuid;
+    private String dateTime;
     private List<String> ItemsForTarget1;
     private List<String> ItemsForTarget2;
     private List<String> ItemsForAll;

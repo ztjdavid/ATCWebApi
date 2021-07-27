@@ -5,6 +5,9 @@ import garethcxy.tk.ATC.Service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/atc/api/{version}")
@@ -20,6 +23,8 @@ public class SummaryResource {
     @GetMapping("/summary/latest")
     public Summary getLatest(){return summaryService.getLatest().orElse(null);}
 
+    @GetMapping("/summary/all")
+    public List<UUID> getAllUUIDs(){return summaryService.getAllids();}
 }
 
 
