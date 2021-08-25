@@ -1,5 +1,6 @@
 package garethcxy.tk.ATC.Resource;
 
+import garethcxy.tk.ATC.Entity.AllUUIDResponse;
 import garethcxy.tk.ATC.Entity.Order;
 import garethcxy.tk.ATC.Entity.Summary;
 import garethcxy.tk.ATC.Service.OrderService;
@@ -24,7 +25,7 @@ public class OrderResource {
     }
 
     @GetMapping("/order/all")
-    public List<UUID> getAllUUIDs(){
+    public List<AllUUIDResponse> getAllUUIDs(){
         return orderService.getAllUUIDs();
     }
 

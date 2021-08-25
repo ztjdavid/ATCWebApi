@@ -37,7 +37,6 @@ public class SummaryDAO implements IDAO<Summary>{
         return summaryList.remove(summary);
     }
 
-    @Override
     public List<UUID> getAllUUID() {
         ArrayList<UUID> result = new ArrayList<>();
         for (Summary summary : summaryList) {

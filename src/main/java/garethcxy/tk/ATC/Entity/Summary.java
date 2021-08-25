@@ -11,7 +11,6 @@ import java.util.UUID;
 @Setter
 public class Summary {
     private UUID uuid;
-    private String dateTime;
     private List<String> ItemsForTarget1;
     private List<String> ItemsForTarget2;
     private List<String> ItemsForAll;

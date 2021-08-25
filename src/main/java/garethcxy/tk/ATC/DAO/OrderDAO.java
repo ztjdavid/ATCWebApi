@@ -1,13 +1,21 @@
 package garethcxy.tk.ATC.DAO;
 
+import garethcxy.tk.ATC.Entity.AllUUIDResponse;
 import garethcxy.tk.ATC.Entity.Order;
+import garethcxy.tk.ATC.Util.OrderUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
 public class OrderDAO implements IDAO<Order>{
+    @Autowired
+    private OrderUtil orderUtil;
+
     private final LinkedList<Order> orderList = new LinkedList<>();
 
     @Value("${global.order.threshold}")
@@ -44,10 +52,9 @@ public class OrderDAO implements IDAO<Order>{
         return orderList.remove(order);
     }
 
-    @Override
-    public List<UUID> getAllUUID() {
-        List<UUID> result = new ArrayList<>();
-        orderList.forEach(order -> result.add(order.getUuid()));
+    public List<AllUUIDResponse> getAllUUIDResponse() {
+        List<AllUUIDResponse> result = new ArrayList<>();
+        orderList.forEach(order -> result.add(orderUtil.buildAllUUIDResponse(order.getUuid(), order.getOrderDate())));
         return result;
     }
 }

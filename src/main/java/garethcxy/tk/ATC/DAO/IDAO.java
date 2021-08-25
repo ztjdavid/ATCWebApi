@@ -10,6 +10,5 @@ public interface IDAO<T> {
     void add(T t);
     boolean delete(UUID id);
     boolean delete(T t);
-    List<UUID> getAllUUID();
 
 }

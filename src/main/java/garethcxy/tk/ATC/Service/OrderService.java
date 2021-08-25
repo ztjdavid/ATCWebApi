@@ -2,6 +2,7 @@ package garethcxy.tk.ATC.Service;
 
 import garethcxy.tk.ATC.DAO.OrderDAO;
 import garethcxy.tk.ATC.DAO.SummaryDAO;
+import garethcxy.tk.ATC.Entity.AllUUIDResponse;
 import garethcxy.tk.ATC.Entity.Order;
 import garethcxy.tk.ATC.Util.SummaryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class OrderService {
         orderDAO.add(newOder);
     }
 
-    public List<UUID> getAllUUIDs(){
-        return orderDAO.getAllUUID();
+    public List<AllUUIDResponse> getAllUUIDs(){
+        return orderDAO.getAllUUIDResponse();
     }
 
     public boolean clear(){ return orderDAO.clear(); }

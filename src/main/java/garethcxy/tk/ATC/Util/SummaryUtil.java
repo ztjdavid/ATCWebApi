@@ -23,7 +23,6 @@ public class SummaryUtil {
         if(order == null) return null;
         Summary result = new Summary();
         result.setUuid(order.getUuid());
-        result.setDateTime(DateTimeToString(order.getOrderDate()));
         result.setTarget1Info(order.getTarget1Info());
         result.setTarget2Info(order.getTarget2Info());
         result.setElectricityFee(order.getFees().getElectricityFee());
@@ -69,10 +68,5 @@ public class SummaryUtil {
             result += itemUtil.calculatePrice(item);
         }
         return result;
-    }
-
-    private String DateTimeToString(LocalDateTime localDateTime){
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd E");
-        return df.format(localDateTime);
     }
 }
