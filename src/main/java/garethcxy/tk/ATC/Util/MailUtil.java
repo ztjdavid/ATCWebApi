@@ -1,5 +1,6 @@
 package garethcxy.tk.ATC.Util;
 
+import garethcxy.tk.ATC.Entity.Summary;
 import org.springframework.stereotype.Component;
 import java.util.Properties;
 import javax.mail.*;
@@ -8,10 +9,10 @@ import javax.mail.internet.MimeMessage;
 
 @Component
 public class MailUtil {
-    private final String username = "atcweb513@gmail.com";
-    private final String password = "atc_513666";
-    private Properties prop = new Properties();
-    private final String addressListStr = "cxy329288574@gmail.com";
+    private final String username = "sender@mail";
+    private final String password = "senderPassword";
+    private final Properties prop = new Properties();
+    private final String addressListStr = "a@mail,b@mail,c@mail";
 
     public MailUtil(){
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -20,16 +21,25 @@ public class MailUtil {
         prop.put("mail.smtp.starttls.enable", "true");
     }
 
-    public void SendNewOrderNotification(){
+    public void SendTestMail(){
+        String subject = "ATCWeb Test Mail";
+        String txt = "This is a test mail from ATCWeb. Please ignore and DO NOT reply.";
+        SendAsync(username, addressListStr, subject, txt);
+    }
+
+    public void SendNewOrderNotification(Summary summary){
         String subject = "ATCWeb Notification";
-        String txt = "有新的账单更新，请尽快查看。\nhttp://www.ethanysh.cf";
-        Thread task = new Thread(() -> SendMail(username, addressListStr, subject, txt));
-        task.start();
+        String txt = "有新的账单更新，具体请查看: http://www.ethanysh.cf\n\nDetails:" + summary.getTxtString();
+        SendAsync(username, addressListStr, subject, txt);
     }
 
     public void SendCustomNotification(String txt, String targetAddress){
         String subject = "ATCWeb Notification";
-        Thread task = new Thread(() -> SendMail(username, targetAddress, subject, txt));
+        SendAsync(username, targetAddress, subject, txt);
+    }
+
+    public void SendAsync(String sourceAddress, String addressList, String subject, String txt){
+        Thread task = new Thread(() -> SendMail(sourceAddress, addressList, subject, txt));
         task.start();
     }
 
@@ -42,7 +52,7 @@ public class MailUtil {
                 });
     }
 
-    boolean SendMail(String sourceAddress, String addressList, String subject, String txt){
+    private void SendMail(String sourceAddress, String addressList, String subject, String txt){
         Session session = AuthSesssion(prop);
         try{
             Message msg = new MimeMessage(session);
@@ -55,9 +65,6 @@ public class MailUtil {
             msg.setText(txt);
 
             Transport.send(msg);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
+        }catch (Exception ignored){}
     }
 }

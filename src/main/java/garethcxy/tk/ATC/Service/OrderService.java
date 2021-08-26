@@ -4,6 +4,8 @@ import garethcxy.tk.ATC.DAO.OrderDAO;
 import garethcxy.tk.ATC.DAO.SummaryDAO;
 import garethcxy.tk.ATC.Entity.AllUUIDResponse;
 import garethcxy.tk.ATC.Entity.Order;
+import garethcxy.tk.ATC.Entity.Summary;
+import garethcxy.tk.ATC.Util.MailUtil;
 import garethcxy.tk.ATC.Util.SummaryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class OrderService {
     private SummaryDAO summaryDao;
     @Autowired
     private SummaryUtil summaryUtil;
+    @Autowired
+    private MailUtil mailUtil;
 
     public Optional<Order> getById(String id){
         UUID uuid = UUID.fromString(id);
@@ -27,8 +31,9 @@ public class OrderService {
     }
 
     public void addOrder(Order newOder){
-        addSummary(newOder);
+        Summary summary = addSummary(newOder);
         orderDAO.add(newOder);
+        mailUtil.SendNewOrderNotification(summary);
     }
 
     public List<AllUUIDResponse> getAllUUIDs(){
@@ -42,8 +47,10 @@ public class OrderService {
         return orderDAO.delete(uuid);
     }
 
-    private void addSummary(Order order){
-        summaryDao.add(summaryUtil.generateSummary(order));
+    private Summary addSummary(Order order){
+        Summary summary = summaryUtil.generateSummary(order);
+        summaryDao.add(summary);
+        return summary;
     }
 
 
