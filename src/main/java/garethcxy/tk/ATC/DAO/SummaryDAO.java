@@ -3,7 +3,6 @@ package garethcxy.tk.ATC.DAO;
 import garethcxy.tk.ATC.Entity.Summary;
 import garethcxy.tk.ATC.Util.ConfigLoader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

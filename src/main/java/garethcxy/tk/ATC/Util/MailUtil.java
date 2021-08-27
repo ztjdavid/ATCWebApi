@@ -1,6 +1,7 @@
 package garethcxy.tk.ATC.Util;
 
 import garethcxy.tk.ATC.Entity.Summary;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Properties;
 import javax.mail.*;
@@ -9,23 +10,27 @@ import javax.mail.internet.MimeMessage;
 
 @Component
 public class MailUtil {
-    private final String username = "sender@mail";
-    private final String password = "senderPassword";
+    private final String username;
+    private final String password;
     private final Properties prop = new Properties();
-    private final String addressListStr = "a@mail,b@mail,c@mail";
+    private final String addressListStr;
 
-    public MailUtil(){
+    @Autowired
+    public MailUtil(ConfigLoader config){
+        username = config.getContent("Mail", "username", String.class);
+        password = config.getContent("Mail", "password", String.class);
+        addressListStr = config.getContent("Mail", "addressList", String.class);
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.starttls.enable", "true");
     }
 
-    public void SendTestMail(){
-        String subject = "ATCWeb Test Mail";
-        String txt = "This is a test mail from ATCWeb. Please ignore and DO NOT reply.";
-        SendAsync(username, addressListStr, subject, txt);
-    }
+//    public void SendTestMail(){
+//        String subject = "ATCWeb Test Mail";
+//        String txt = "This is a test mail from ATCWeb. Please ignore and DO NOT reply.";
+//        SendAsync(username, addressListStr, subject, txt);
+//    }
 
     public void SendNewOrderNotification(Summary summary){
         String subject = "ATCWeb Notification";
@@ -33,10 +38,10 @@ public class MailUtil {
         SendAsync(username, addressListStr, subject, txt);
     }
 
-    public void SendCustomNotification(String txt, String targetAddress){
-        String subject = "ATCWeb Notification";
-        SendAsync(username, targetAddress, subject, txt);
-    }
+//    public void SendCustomNotification(String txt, String targetAddress){
+//        String subject = "ATCWeb Notification";
+//        SendAsync(username, targetAddress, subject, txt);
+//    }
 
     public void SendAsync(String sourceAddress, String addressList, String subject, String txt){
         Thread task = new Thread(() -> SendMail(sourceAddress, addressList, subject, txt));

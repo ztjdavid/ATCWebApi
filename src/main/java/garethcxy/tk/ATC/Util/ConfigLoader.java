@@ -1,7 +1,6 @@
 package garethcxy.tk.ATC.Util;
 
 import org.ini4j.Ini;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
