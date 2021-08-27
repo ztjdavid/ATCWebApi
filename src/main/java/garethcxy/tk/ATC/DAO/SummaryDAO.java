@@ -1,6 +1,8 @@
 package garethcxy.tk.ATC.DAO;
 
 import garethcxy.tk.ATC.Entity.Summary;
+import garethcxy.tk.ATC.Util.ConfigLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +11,12 @@ import java.util.*;
 @Component
 public class SummaryDAO implements IDAO<Summary>{
     private final LinkedList<Summary> summaryList = new LinkedList<>();
+    private final int maxStorage;
 
-    @Value("${global.order.threshold}")
-    private int maxStorage;
+    @Autowired
+    public SummaryDAO(ConfigLoader config){
+        maxStorage = config.getContent("Properties", "OrderThreshold", int.class);
+    }
 
     @Override
     public Optional<Summary> get(UUID id) {

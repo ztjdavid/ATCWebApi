@@ -1,22 +1,22 @@
 package garethcxy.tk.ATC.Entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import garethcxy.tk.ATC.Util.ConfigLoader;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Getter
 public enum Shop {
-    JNC(0.05, "金牛城超市Online"),
-    UBER(0.113, "Uber Eats"),
-    NORMAL(0, "普通超市");
+    JNC("金牛城超市Online"),
+    UBER( "Uber Eats"),
+    NORMAL("普通超市");
 
-    private final double rate;
     private final String desc;
 
-    Shop(double rate, String desc){
-        this.rate = rate;
+    Shop(String desc){
         this.desc = desc;
     }
 

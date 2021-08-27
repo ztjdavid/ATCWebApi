@@ -43,7 +43,7 @@ public class MailUtil {
         task.start();
     }
 
-    private Session AuthSesssion(Properties prop){
+    private Session AuthSession(Properties prop){
         return Session.getInstance(prop,
                 new Authenticator(){
                     protected PasswordAuthentication getPasswordAuthentication(){
@@ -53,7 +53,7 @@ public class MailUtil {
     }
 
     private void SendMail(String sourceAddress, String addressList, String subject, String txt){
-        Session session = AuthSesssion(prop);
+        Session session = AuthSession(prop);
         try{
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(sourceAddress));
