@@ -40,5 +40,5 @@ public class OrderResource {
     }
 
     @PostMapping("/order/clear")
-    public boolean clear(){ return orderService.clear(); }iugvbiygyiuguigbiu
+    public boolean clear(){ return orderService.clear(); }iugvbiygyiuguigbiugiuhiuhouiiuhuoi
 }
